@@ -123,6 +123,92 @@ class A {
 
 ## 연산자
 
-js랑 같아서 넘어감
+js랑 거의 같아서 넘어감
 
-##
+## 배열
+
+```java
+배열요소타입[] 배열변수명;
+int[] numbers;
+
+배열변수명 = new 배열요소타입[요소수];
+numbers = new int[5];
+
+배열요소타입[] 배열변수명 = new 배열요소타입[요소수]
+int[] array = new int[5];
+```
+
+### 배열 초기값
+
+| 타입                | 초기값 |
+| ------------------- | ------ |
+| byte,short,int,long | 0      |
+| float,double        | 0.0    |
+| boolean             | false  |
+| char                | 0      |
+| 객체타입            | null   |
+
+```java
+배열요소타입[] 배열 변수명 = {요소, 요소, ...};
+
+int[] array = {1,10,100,1000,10000};
+
+```
+
+### 다차원배열
+
+```java
+int [][] array;
+
+new int[3][3];
+
+new String[][]{
+    {"1-1","1-2","1-3"},
+	{"2-1","2-2","2-3"},
+	{"3-1","3-2","3-3"},
+};
+```
+
+## 조건문, 반복문
+
+JS 거의 같아 설명 생략
+
+```java
+if(){} else if(){} else{}
+
+a?b:c;
+
+switch(식){
+    case1:
+        break;
+    case2:
+        break;
+    default:
+        break;
+}
+
+```
+
+```java
+
+while(){}
+
+do{}while()
+
+for(int i=0;i<=5;i+-1>){}
+
+// 확장for
+
+for(요소타입 변수명: 배열명(컬랙션명)){
+    처리;
+}
+
+int total = 0;
+int number[] = {1, 2, 3, 4, 5};
+for(int score: number){
+　total += score;
+}
+
+break;
+continue;
+```
