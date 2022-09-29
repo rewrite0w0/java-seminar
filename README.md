@@ -17,7 +17,7 @@
 
 ### 간략한 구조 이해도 및 용어
 
-![JDK, JRE, JVM](https://storage.googleapis.com/zenn-user-upload/eb851d8f405d58d2049b3dae.png)
+![JDK, JRE, JVM](./src/JDK.jpg)
 
 - JDK: 자바 개발 킷(프로그램 **개발**을 위함)
 - JRE: 자바 런타임 환경(프로그램 **실행**을 위함)
@@ -49,3 +49,4 @@ Windows 기준 편한 방법 2가지
 9. [추상과 인터페이스](abstract_and_interface.md)
 10. [자료형 타입변환](type.md)
 11. [패키지](packages.md)
+12. [예제](example.md)

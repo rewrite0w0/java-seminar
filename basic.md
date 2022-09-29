@@ -418,21 +418,41 @@ public final void doProcess() throws Throwable {
 
 ## 쓰레드
 
+- 멀티프로세서 유효 활용 위함
 - 동시성을 위함
 
-1. Thread
-2. Join
-3. Runnable
+### Thread, Runnable
+
+```java
+Runnable task = new Runnable() {
+    // 태스크 처리
+    ...
+};
+
+// task를 실행하는 스레드 생성
+Thread thread = new Thread(task);
+
+// 스레드 시작(내부적으로는 thread.run()가 실행)
+thread.start();
+```
+
+- 다만 위의 thread.start()은 작업이 완료되어도 호출에서는 알 수 없음.
+- 본래 호출 메서드에서는 다른 스레드의 실행중의 작업상태 진척상황을 파악하기 어려움
+- 또, `Runnable` 인터페이스 인수도 반환값을 갖지 못하고 예외 throw를 던지지 못함
 
 ## 람다
 
 - js랑 같음
 
 ```js
+// lambda.js
+
 (a, b) => a + b;
 ```
 
 ```java
+// lambda.java
+
 (int a, int b) -> a + b;
 ```
 
