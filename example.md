@@ -10,7 +10,7 @@
 // 해당 폴더가 패키지이름
 // threema-android/app/src/main/java/ch/threema/app/activities/
 // 에서
-// /ch/threema/app/activities/ 부분이 패키지 이름이 됨(현재 mainAcitiviy.app 위치이기도 함)
+// /ch/threema/app/activities/ 부분이 패키지 이름이 됨(현재 mainAcitiviy.java 위치이기도 함)
 
 package ch.threema.app.activities;
 
