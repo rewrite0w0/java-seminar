@@ -181,4 +181,16 @@ String status(String name) {  //status 메서드 반환 값 타입 String
     }
 ```
 
-위의 2가지일 때는 오버로드 불가능
+- 위의 2가지일 때는 오버로드 불가능
+
+### main 메서드
+
+- 시작과 끝은 `main`
+
+```java
+public class HelloWorld{
+  public static void main(String[] args){
+    System.out.println("Hello World!");
+  }
+}
+```

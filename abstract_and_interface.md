@@ -104,7 +104,7 @@ public class AbstractSub extends AbstractSuper {
   - 메서드: public abstract
   - 이로 인해 각각의 성질을 지니게 됨
 
-## 구현
+### 구현
 
 ```java
 수식자 class 클래스명 implements 인터페이스명 {}
@@ -166,6 +166,42 @@ class InterClass implements C {
   public void method1(){}  // 슈퍼인터페이스 A 메서드 구현
   public void method2(){}  // 슈퍼인터페이스 B 메서드 구현
   public void method3(){}  // 서브인터페이스 C 메서드 구현
+}
+```
+
+### 익명클래스
+
+인터페이스 내에 클래스를 구현하는 익명 클래스
+
+```java
+// 익명 클래스 인스턴스 생성
+Runnable runnable = new Runnable() {
+    public void run() {
+        // 비동기처리
+        ...
+    }
+};
+
+// runnable를 다른 스레드에서 비동기실행
+new Thread(runnable).start();
+...
+```
+
+```java
+// Runnable 익명 클래스 인스턴스 생성해서, 다른 스레드에서 비동기 실행
+new Thread(new Runnable() {
+    public void run() {
+        // 비동기 실행
+        ...
+    }
+} ).start();
+```
+
+```java
+// InterfaceName : 인터페이스 명、var : 변수명
+[ InterfaceName var = ] new InterfaceName () {
+    // 메서드 정의(모든 추상 메서드 구현)
+    [ method [ method ... ] ]
 }
 ```
 

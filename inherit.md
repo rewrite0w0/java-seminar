@@ -169,3 +169,85 @@ class Sub extends Super {
    void method(){};  // 컴파일 에러
 }
 ```
+
+## private 컨스트럭터 사용방법
+
+- private 컨스트럭터는 계승에 제한이 있기에 이를 활용하기 위한 방법이 따로 존재
+- 유틸리티 클래스, 팩토리 메서드, 싱글톤이 대표적
+
+### 유틸리티 클래스
+
+- 유틸리티 클래스: `static` 메서드와 상수 필드만 가지고 있는 클래스
+- Java 표준 API에서는 `Math` `Collections` 클래스가 대표적
+- 인스턴스 생성할 필요없음
+- 계승 또한 필요없음
+- `final` 표기해 계승하지 않음을 명시해야함
+- 인수가 없는 `private` 컨스트럭터만 정의해 계승과 인스턴스 생성 모두 제어
+
+```java
+public final class Math {
+    private Math() {
+
+    }
+
+    public static int max(int a, int b) {
+        return (a >= b) ? a : b;
+    }
+    ...
+}
+```
+
+### 팩토리 메서드
+
+- 인스턴스 생성시, 컨스트럭터 초기화해서 사용해야하는 경우는 팩토리 메서드
+- `public` `static` 메서드 정의
+- 컨스트럭터를 `private` 계승 허용하고 싶드면 `protected` 스코프 정의
+- 팩터리 메서드는 처리 은폐
+
+```java
+public final class LocalDate {
+
+    private LocalDate(int year, int month, int dayOfMonth) {
+        ...
+    }
+
+    public static LocalDate of(int year, int month, int dayOfMonth) {
+        // 실제 LocalDate 에서 복수 메서드를 처리할 수 있지만 여기서는 생략
+
+        ...
+        return new LocalDate(year, month, dayOfMonth);
+    }
+    ...
+}
+```
+
+- `LocalDate` 클래스는 날짜를 표현
+- 날짜를 여러 표현이 있음(년-월-일, 년-월이름-일 등등)
+- 불변 클래스이므로 인스턴스 필요
+- 이 모든 것을 담은 클래스를 구현하기 어렵기에 컨스트럭터는 `private`로 은폐 후 팩터리 메서드를 사용
+
+### 싱글톤
+
+- 인스턴스를 오직 하나만 생성하는 클래스를 실현하는 테크닉
+- 애플리케이션 전체 공유하고 싶은 정보를 담기 위해 사용
+
+```java
+public final class Singleton {
+    // private 한 static 필드에 유일한 인스턴스 설정
+    private static final Singleton instance = new Singleton();
+
+    private Singleton() {
+        ...
+    }
+
+    public static Singleton getInstance() {
+        // instance 값은 늘 같으므로 이 메서드는 반환값은 늘 같음
+        return instance;
+    }
+    ...
+}
+```
+
+- private 스쿠프 정의되어 있으므로, 다른 클래스나 일반적 메서드는 인스턴스 생성 불가
+- final + static 필드 인스턴스 초기값은 인스턴스 생성(컨스트럭터 호출)함으로 instacne 값은 변경할 수 없으며, 인스턴스는 static 필드 instance에 설정된 유일한 값이 됨
+- static 메서드 getInstace는 초기화 된 instace 값을 반환하므로 늘 같은 값
