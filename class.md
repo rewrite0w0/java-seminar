@@ -95,13 +95,13 @@ public class Sample {
 public class Sample {
   public static void main(String[] args) {
     // Curry 클래스 인스턴스화
-    Curry curry = new Curry();
+    Curry oddugi = new Curry();
 
     // Curry 클래스 필드 값
-    System.out.println(curry.name);
+    System.out.println(oddugi.name);
 
     // Curry 클래스 메서드 실행
-    System.out.println(curry.taste());
+    System.out.println(oddugi.taste());
   }
 }
 ```
