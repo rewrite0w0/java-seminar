@@ -5,16 +5,11 @@
 ```java
 // MainActivity.java
 
-// https://github.com/threema-ch/threema-android/tree/557b69f33dd1db96f58e41f6602e32522470f53e/app/src/main/java/ch/threema/app/activities
-
 // 해당 폴더가 패키지이름
-// threema-android/app/src/main/java/ch/threema/app/activities/
-// 에서
+// threema-android/app/src/main/java/ch/threema/app/activities/ 에서
 // /ch/threema/app/activities/ 부분이 패키지 이름이 됨(현재 mainAcitiviy.java 위치이기도 함)
 
 package ch.threema.app.activities;
-
-
 
 // nodejs의 import 처럼 필요한 기능을 불러옴
 // 안드로이드 api
@@ -31,11 +26,8 @@ import ch.threema.app.R;
 // 왜 해당 저장소에 있는지는 사실 의문
 // node_modules 처럼 ignore된 상태인 것으로 추정
 
-
-
-
 public class MainActivity extends ThreemaAppCompatActivity {
-// MainActivity은 추상 클래스 ThreemaAppCompatActivity를 계승(자식클래스가 됨)
+// MainActivity은 추상 클래스 ThreemaAppCompatActivity를 계승
 
 // ThreemaAppCompatActivity은 AppCompatActivity 계승
 // https://github.com/threema-ch/threema-android/blob/fe9bf2d286451fc824a061a6e2240c8d468fa033/app/src/main/java/ch/threema/app/activities/ThreemaAppCompatActivity.java
@@ -46,28 +38,37 @@ public class MainActivity extends ThreemaAppCompatActivity {
 
 
 	public MainActivity() {}
-  // 일부 디바이스에서 클래스에 인수가 없는 컨스트럭터 회피하기 위함
+  	// 일부 디바이스에서 클래스에 인수가 없는 컨스트럭터 회피하기 위함
 
 
+
+  	// 오버라이드 선언
+  	// onCreate를 겹쳐서 선언할 수 있도록
 	@Override
-  // 오버라이드 선언
-  // onCreate를 새로히 선언할 수 있도록
-
-  protected void onCreate(Bundle savedInstanceState) {
+  	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-    // 기본구조
-    // 1. 화면 변경시
-    // 2. 메모리 부족에 의해 프로세스 kill 되었을 시
-      // 등의 상황에서 savedInstanceState가 문제 상태 당시 인스턴스 상황에 따라 상황에서 복구화면을 만듬
-    // 그리고 문제 상황의 상태를 저장하는 것이 onSaveInstanceState
+    	// 기본구조
+    	// 1. 화면 변경시
+    	// 2. 메모리 부족에 의해 프로세스 kill 되었을 시
+      	// 등의 상황에서 savedInstanceState가 문제 상태 당시 인스턴스 상황에 따라 상황에서 복구화면을 만듬
+    	// 그리고 문제 상황의 상태를 저장하는 것이 onSaveInstanceState
 
 
 		Intent intent = new Intent(this, HomeActivity.class);
-    // https://github.com/threema-ch/threema-android/blob/e360a693e3355ac93aafc8cb388543ab08d157b1/app/src/main/java/ch/threema/app/activities/HomeActivity.java
-    // 화면 전환(액티비티 전환)에 사용
+    	// https://github.com/threema-ch/threema-android/blob/e360a693e3355ac93aafc8cb388543ab08d157b1/app/src/main/java/ch/threema/app/activities/HomeActivity.java
+    	// 화면 전환(액티비티 전환)에 사용
 		startActivity(intent);
+		// startActivity() 메서드는 Intent에서 지정하는 DisplayMessageActivity의 인스턴스를 시작
+		// https://developer.android.com/training/basics/firstapp/starting-activity?hl=ko#BuildIntent
+
+
 		overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
+		// https://developer.android.com/reference/android/R.anim#fade_in
+		// https://developer.android.com/reference/android/R.anim#fade_out
 		finish();
+		// 생명주기 관련된 메서드, 종료를 의미
+		// https://developer.android.com/guide/components/activities/activity-lifecycle
+		// https://developer.android.com/reference/android/app/Activity#finish()
 	}
 }
 ```
@@ -76,16 +77,23 @@ public class MainActivity extends ThreemaAppCompatActivity {
 
 ```java
 // ThreemaAppCompatActivity.java
+
 package ch.threema.app.activities;
 
+// 안드로이드 API
 import android.content.res.Configuration;
 import android.widget.Toast;
 
-import org.slf4j.Logger;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import ch.threema.app.R;
+
+// 로깅 패키지
+// https://www.slf4j.org/api/org/slf4j/Logger.html
+import org.slf4j.Logger;
+
+// 프로젝트에서 자체 생성한 기능
 import ch.threema.app.ThreemaApplication;
 import ch.threema.app.backuprestore.csv.BackupService;
 import ch.threema.app.backuprestore.csv.RestoreService;
@@ -97,12 +105,15 @@ import ch.threema.base.utils.LoggingUtil;
 // https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity
 
 public abstract class ThreemaAppCompatActivity extends AppCompatActivity {
-  // 로깅 안드로이드 api
-  // https://developer.android.com/reference/java/util/logging/Logger
+	// 로깅 안드로이드 api
+	// ThreemaAppCompatActivity를 추적
+	// https://developer.android.com/reference/java/util/logging/Logger
 	private static final Logger logger = LoggingUtil.getThreemaLogger("ThreemaAppCompatActivity");
+
 
 	@Override
 	protected void onResume() {
+		// 생명주기 메서드
 		if (BackupService.isRunning() || RestoreService.isRunning()) {
 			Toast.makeText(this,  R.string.backup_restore_in_progress, Toast.LENGTH_LONG).show();
 			finish();
@@ -123,13 +134,112 @@ public abstract class ThreemaAppCompatActivity extends AppCompatActivity {
 		}
 		try {
 			super.onResume();
-		} catch (IllegalArgumentException ignored) {}
+		} catch (IllegalArgumentException ignored) {
+			// 인수에 적절히 못한 값이 전달 됨 (null에도 적용됨)
+		}
 	}
 
 
+	// https://developer.android.com/guide/topics/resources/runtime-changes?hl=ko
+	// 화면 방향 확인
+	// AndroidManifest.xml 속성 추가해야함
 	@Override
 	public void onConfigurationChanged(@NonNull Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
+	}
+}
+```
+
+- https://developer.android.com/guide/topics/resources/runtime-changes?hl=ko
+- 위의 onConfigurationChanged 예제
+
+```java
+@Override
+public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+
+    // Checks the orientation of the screen
+    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+    }
+}
+
+```
+
+```java
+// LogcatBackendTest.java
+// 부록: 테스트 코드
+
+package ch.threema.app.logging;
+
+import android.util.Log;
+
+// https://junit.org/junit4/javadoc/latest/org/junit/Assert.html
+// 테스트 패키지
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+// 목업 패키지
+import org.mockito.ArgumentCaptor;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+// 프로젝트 자체 패키지
+import ch.threema.app.BuildConfig;
+import ch.threema.logging.LogLevel;
+import ch.threema.logging.backend.LogcatBackend;
+
+// 목업 임포트
+import static org.mockito.Mockito.times;
+
+/**
+ * Logcat backend test.
+ */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Log.class})
+public class LogcatBackendTest {
+	private final ArgumentCaptor<String> tagCaptor = ArgumentCaptor.forClass(String.class);
+	private final ArgumentCaptor<String> msgCaptor = ArgumentCaptor.forClass(String.class);
+	private final ArgumentCaptor<Integer> levelCaptor = ArgumentCaptor.forClass(Integer.class);
+
+	private void assertLogArguments(@LogLevel int level, String tag, String msg) {
+		Assert.assertEquals(Integer.valueOf(level), levelCaptor.getValue());
+		Assert.assertEquals(tag, tagCaptor.getValue());
+		Assert.assertEquals(msg, msgCaptor.getValue());
+	}
+
+	/**
+	 * Make sure that enabling the debug log file actually creates the debug log file.
+	 * Also test that the file is only created when enabled.
+	 */
+	@Test
+	public void testTagCleaning() {
+		PowerMockito.mockStatic(Log.class);
+		final LogcatBackend backend = new LogcatBackend(Log.INFO);
+
+		backend.print(Log.WARN, "ch.threema.app.Hello", null, "hello");
+		PowerMockito.verifyStatic(Log.class, times(1));
+		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
+		this.assertLogArguments(Log.WARN, BuildConfig.LOG_TAG, "Hello: hello");
+
+		backend.print(Log.INFO, "ch.threema.domain.Bye", null, "goodbye");
+		PowerMockito.verifyStatic(Log.class, times(2));
+		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
+		this.assertLogArguments(Log.INFO, BuildConfig.LOG_TAG, "Bye: goodbye");
+
+		backend.print(Log.INFO, "ch.threema.app.subpackage.Abcd", null, "msg");
+		PowerMockito.verifyStatic(Log.class, times(3));
+		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
+		this.assertLogArguments(Log.INFO, BuildConfig.LOG_TAG, "subpackage.Abcd: msg");
+
+		backend.print(Log.ERROR, "any.other.package", null, "hmmmm");
+		PowerMockito.verifyStatic(Log.class, times(4));
+		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
+		this.assertLogArguments(Log.ERROR, BuildConfig.LOG_TAG, "any.other.package: hmmmm");
 	}
 }
 ```
@@ -140,6 +250,8 @@ public abstract class ThreemaAppCompatActivity extends AppCompatActivity {
 // HomeActivity.java
 package ch.threema.app.activities;
 
+
+// 안드로이드 api
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -168,8 +280,10 @@ import android.widget.Toast;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+// 로그 패키지
 import org.slf4j.Logger;
 
+// java api
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.net.InetSocketAddress;
@@ -180,6 +294,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.RejectedExecutionException;
 
+// 안드로이드 api
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -191,6 +306,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+// 프로젝트 자체 패키지
 import ch.threema.app.BuildConfig;
 import ch.threema.app.BuildFlavor;
 import ch.threema.app.R;
@@ -264,13 +381,15 @@ import ch.threema.storage.models.AbstractMessageModel;
 import ch.threema.storage.models.ContactModel;
 import ch.threema.storage.models.ConversationModel;
 
+
+// 상수값
 import static ch.threema.app.services.ConversationTagServiceImpl.FIXED_TAG_UNREAD;
 import static ch.threema.app.voip.services.VoipCallService.ACTION_HANGUP;
 import static ch.threema.app.voip.services.VoipCallService.EXTRA_ACTIVITY_MODE;
 import static ch.threema.app.voip.services.VoipCallService.EXTRA_CONTACT_IDENTITY;
 import static ch.threema.app.voip.services.VoipCallService.EXTRA_START_TIME;
 
-// implements: 계승과 유사한 키워드
+// implements: extends과 유사한 키워드
 // `,`를 통해 복수 지정 가능
 // 추상클래스와 같이 인터페이스는 구현한 클래스에 추상 메서드 모두 오버라이드 필수
 
@@ -342,6 +461,9 @@ public class HomeActivity extends ThreemaAppCompatActivity implements
 						}
 					} else if (intent.getAction().equals(IntentDataUtil.ACTION_UPDATE_AVAILABLE) && !ConfigUtils.isWorkBuild() && userService != null && userService.hasIdentity()) {
 						new Handler().postDelayed(new Runnable() {
+							// https://developer.android.com/reference/java/lang/Runnable
+							// Runnable 인터페이스는 스레드 실행할 때, 클래스를 구현할 필요가 있음
+							// 클래스는 인수가 없는 run() 정의해야함
 							@Override
 							public void run() {
 								Intent dialogIntent = new Intent(intent);
@@ -1923,73 +2045,3 @@ public class HomeActivity extends ThreemaAppCompatActivity implements
 ```
 
 - https://github.com/threema-ch/threema-android/blob/main/app/src/test/java/ch/threema/app/logging/LogcatBackendTest.java
-
-```java
-// LogcatBackendTest.java
-// 부록: 테스트 코드
-
-package ch.threema.app.logging;
-
-import android.util.Log;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import ch.threema.app.BuildConfig;
-import ch.threema.logging.LogLevel;
-import ch.threema.logging.backend.LogcatBackend;
-
-import static org.mockito.Mockito.times;
-
-/**
- * Logcat backend test.
- */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({Log.class})
-public class LogcatBackendTest {
-	private final ArgumentCaptor<String> tagCaptor = ArgumentCaptor.forClass(String.class);
-	private final ArgumentCaptor<String> msgCaptor = ArgumentCaptor.forClass(String.class);
-	private final ArgumentCaptor<Integer> levelCaptor = ArgumentCaptor.forClass(Integer.class);
-
-	private void assertLogArguments(@LogLevel int level, String tag, String msg) {
-		Assert.assertEquals(Integer.valueOf(level), levelCaptor.getValue());
-		Assert.assertEquals(tag, tagCaptor.getValue());
-		Assert.assertEquals(msg, msgCaptor.getValue());
-	}
-
-	/**
-	 * Make sure that enabling the debug log file actually creates the debug log file.
-	 * Also test that the file is only created when enabled.
-	 */
-	@Test
-	public void testTagCleaning() {
-		PowerMockito.mockStatic(Log.class);
-		final LogcatBackend backend = new LogcatBackend(Log.INFO);
-
-		backend.print(Log.WARN, "ch.threema.app.Hello", null, "hello");
-		PowerMockito.verifyStatic(Log.class, times(1));
-		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
-		this.assertLogArguments(Log.WARN, BuildConfig.LOG_TAG, "Hello: hello");
-
-		backend.print(Log.INFO, "ch.threema.domain.Bye", null, "goodbye");
-		PowerMockito.verifyStatic(Log.class, times(2));
-		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
-		this.assertLogArguments(Log.INFO, BuildConfig.LOG_TAG, "Bye: goodbye");
-
-		backend.print(Log.INFO, "ch.threema.app.subpackage.Abcd", null, "msg");
-		PowerMockito.verifyStatic(Log.class, times(3));
-		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
-		this.assertLogArguments(Log.INFO, BuildConfig.LOG_TAG, "subpackage.Abcd: msg");
-
-		backend.print(Log.ERROR, "any.other.package", null, "hmmmm");
-		PowerMockito.verifyStatic(Log.class, times(4));
-		Log.println(levelCaptor.capture(), tagCaptor.capture(), msgCaptor.capture());
-		this.assertLogArguments(Log.ERROR, BuildConfig.LOG_TAG, "any.other.package: hmmmm");
-	}
-}
-```

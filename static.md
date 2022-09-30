@@ -162,6 +162,10 @@ public class FootballPlayertMain {
     haaland.Self("홀란드이다.");
   }
 }
+```
+
+
+
 
 ```bash
 이름: 호날두
