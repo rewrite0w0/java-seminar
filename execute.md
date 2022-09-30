@@ -14,7 +14,7 @@ public class Calc {}
 
 ```java
 접근수식자 static수식자 final수식자 자료형 변수명;
-// stats/fianl 생략가능
+// static/fianl 생략가능
 
 private String name;
 ```
@@ -26,7 +26,7 @@ private String name;
     처리
     return 반환값;
 }
-// stats/fianl/return 생략가능
+// static/fianl/return 생략가능
 
 public int number(int[] people){
     int num = 10;

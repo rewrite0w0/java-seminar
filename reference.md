@@ -30,17 +30,22 @@ constant pool(Java가상머신 메모리 내 힙영역 일부)참조해서 메�
 
 **이렇기에 인스턴스 생성하지 않고 참조할 수 있음**
 
+```
 val1 =>
 ㅤㅤㅤㅤㅤㅤㅤconstant pool <주소(100) String 인스턴스 char[]?={'a','b','c'}>
 val2 =>
+```
 
 ```java
 String val1 = new String("abc");
 String val2 = new String("abc");
 ```
 
+```
 val1 => 힙<주소(100) String 인스턴스 char[]?={'a','b','c'}>
+
 val2 => 힙<주소(200) String 인스턴스 char[]?={'a','b','c'}>
+```
 
 이런식으로 메모리 하나 더 씀
 

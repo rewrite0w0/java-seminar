@@ -11,7 +11,7 @@
 ## 클래스
 
 - 클래스는 **객체를 만들기 위한 설계도**
-- **필드(상태)**와 **메서드(기능)**을 묶어둔 것
+- 필드(상태)와 메서드(기능)을 묶어둔 것
 - 필드: 클래스 내 변수 정의 **(멤버 변수)**
 - 메서드: 해당 메서드 내 변수 정의 **(로컬 변수)**
 
@@ -91,8 +91,6 @@ public class Sample {
 }
 ```
 
-사용방법은 `JS` 객체와 닮음
-
 ```java
 public class Sample {
   public static void main(String[] args) {
@@ -113,7 +111,7 @@ public class Sample {
 맵지만 맛난 카레
 ```
 
-##### 여담, JS 닮았다는 이유
+#### 사용방법은 `JS` 객체와 닮음
 
 ```js
 const obj = {
@@ -186,6 +184,7 @@ String status(String name) {  //status 메서드 반환 값 타입 String
 ### main 메서드
 
 - 시작과 끝은 `main`
+- 이곳에서 주 처리가 이뤄져야함
 
 ```java
 public class HelloWorld{

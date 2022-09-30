@@ -10,13 +10,13 @@
 
 | 표기   | 멤버변수     | 멤버메서드     | 다른 클래스에서 호출 |
 | ------ | ------------ | -------------- | -------------------- |
-|        | 인스턴스변수 | 인스턴스메서드 | 인스턴스화필수       |
+|        | 인스턴스변수 | 인스턴스메서드 | 인스턴스화 필수      |
 | static | static변수   | static메서드   | 인스턴스화 필요없음  |
 
 ### 예시
 
 ```java
-// CallInstanceStatic.java
+// InstanceStatic.java
 
 public class InstanceStatic {
     // 인스턴스 변수 선언, 초기화
@@ -66,8 +66,6 @@ public class CallInstanceStatic {
 10
 10
 ```
-
-### 여담
 
 - 인스턴스 변수, 메서드는 인스턴스화 후에 사용할 수 있음
 - 그래서 인스턴스화 하지 않으면 참조할 수 없어 컴파일 에러
@@ -136,7 +134,7 @@ public class FootballPlayer {
     System.out.println("이름:" + name);
     System.out.println("나이:" + age);
     System.out.println("성별：" + gender);
-    System.out.println("자기소개：" + mess);
+    System.out.println("자기소개：" + msg);
     System.out.println("-------------------------");
   }
 }
@@ -155,10 +153,10 @@ public class FootballPlayertMain {
     FootballPlayer haaland = new FootballPlayer();
 
     ronaldo.name = "호날두";
-    ronaldo.age = 29;
+    ronaldo.age = 39;
 
     haaland.name = "홀란드";
-    haaland.age = 25;
+    haaland.age = 22;
 
     ronaldo.Self("호날두이다.");
     haaland.Self("홀란드이다.");
@@ -167,12 +165,12 @@ public class FootballPlayertMain {
 
 ```bash
 이름: 호날두
-나이: 29
+나이: 39
 자기소개: 호날두이다.
 성별: 남
 ----------------------------
 이름: 홀란드
-나이: 25
+나이: 22
 자기소개: 홀란드이다.
 성별: 남
 ----------------------------
@@ -180,9 +178,9 @@ public class FootballPlayertMain {
 
 - 여기서 `static`를 작성하지 않아도 클래스를 사용할 수 있음
 - 그 이유는 2가지 조건 중 하나를 충족했기 때문
-- 1. 자기 인스턴스 인스턴스멤버 참조할 때
-- 2. 자기 클래스 static 멤버를 참조할 때
+  1. 자기 인스턴스 인스턴스멤버 참조할 때
+  2. 자기 클래스 static 멤버를 참조할 때
 - 상기 예시는 Self 메서드 실행시, `호날두`, `홀란드` 자신 인스턴스를 특정.
-- 이에, name, age 자기 인스턴스를 인스턴스 멤버로 참조할 수 있는 걸
+- 이에 name, age 자기 인스턴스를 인스턴스 멤버로 참조할 수 있는 걸
 - 즉, static이면서 같은 값을 갖는 것이 static 멤버(위의 예시는 gender)
 - 반대로 각각 인스턴스가 다른 값을 갖는 인스턴스 멤버(비 static멤버, name, age)

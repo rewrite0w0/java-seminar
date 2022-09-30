@@ -44,7 +44,7 @@ Windows 기준 편한 방법 2가지
 4. [참조에 대하여](reference.md)
 5. [static](static.md)
 6. [클래스와 계승](inherit.md)
-7. [컨스트럭터](constructor.md)
+7. [컨스트럭터](consturctor.md)
 8. [캡슐화](capsule.md)
 9. [추상과 인터페이스](abstract_and_interface.md)
 10. [자료형 타입변환](type.md)
