@@ -141,12 +141,12 @@ class Overload{
     public static void main(String[] args) {
         Overload over1 = new Overload();
         ins1.status("꾸에에엑");
-        // 오버로드의 이름 구에에엑
+        // 오버로드의 이름 꾸에에엑
         // 색은 빨강
 
         Overload over2 = new Overload();
-        ins2.status("꾸에에엑", "파랑")
-        // 오버로드의 이름 구에에엑
+        ins2.status("호에에엑", "파랑")
+        // 오버로드의 이름 호에에엑
         // 색은 파랑
     }
 }
